@@ -43,6 +43,14 @@ class Import
 
         // Loop through all rows
         $sheet->each(function ($row, $index) use ($sheet, &$success, $model, $request) {
+
+            /**
+            * Return success when row is empty
+            */
+            if($row->filter()->isEmpty()) {
+                return $success;
+            }
+
             $data = static::fixRow($row->toArray());
 
             // Set the line values so that request class could validate
